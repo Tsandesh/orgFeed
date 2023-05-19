@@ -9,8 +9,10 @@ const CreatePost = ({ setToggle }) => {
   const [desc, setDesc] = useState("");
   const [status, setStatus] = useState("open");
   const [priority, setPriority] = useState("low");
+  const [isLoading, setIsLoading] = useState(false);
 
   const onCreateHandler = async () => {
+    setIsLoading(true);
     try {
       const res = await createPost({
         title,
@@ -26,9 +28,11 @@ const CreatePost = ({ setToggle }) => {
         setTitle("");
         setEmail("");
         setDesc("");
+        setIsLoading(false);
       }
     } catch (err) {
       //   console.log("error", err.response);
+      setIsLoading(false);
       err.response.data
         ? toast.error(err.response.data.errors[0].msg)
         : toast.error(err.response.data.error);
@@ -92,7 +96,11 @@ const CreatePost = ({ setToggle }) => {
             </div>
           </div>
           <div className="card-actions justify-end mt-2">
-            <button className="btn btn-gray-650 py-0" onClick={onCreateHandler}>
+            <button
+              className="btn btn-gray-650 py-0"
+              onClick={onCreateHandler}
+              disabled={isLoading}
+            >
               Create Post
             </button>
           </div>

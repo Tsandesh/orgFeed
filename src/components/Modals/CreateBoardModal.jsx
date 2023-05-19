@@ -8,8 +8,10 @@ const CreateBoardModal = ({ setToggle }) => {
   const [name, setName] = useState("");
   const [boardType, setBoardType] = useState("bugReport");
   const [desc, setDesc] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const createBoardHandler = async () => {
+    setIsLoading(true);
     try {
       const res = await createBoard({
         name,
@@ -19,7 +21,9 @@ const CreateBoardModal = ({ setToggle }) => {
       });
       setToggle(true);
       toast.success("Board Created Succesfully");
+      setIsLoading(false);
     } catch (error) {
+      setIsLoading(false);
       console.log(error);
     }
   };
@@ -60,6 +64,7 @@ const CreateBoardModal = ({ setToggle }) => {
               href="#"
               className="btn w-[5.5rem] "
               onClick={() => createBoardHandler()}
+              disabled={isLoading}
             >
               YES
             </a>

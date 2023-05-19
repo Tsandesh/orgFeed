@@ -32,7 +32,7 @@ const MyOrganisation = () => {
     <>
       <ToastContainer theme="colored" autoClose={3000} />
 
-      <div className="relative overflow-x-auto w-11/12 mx-10">
+      <div className="relative overflow-x-auto w-11/12 mx-10 h-[100vh]">
         <h1 className="text-3xl text-center my-5">MY ORGANIZATION</h1>
         <div>
           {/* The button to open modal */}
