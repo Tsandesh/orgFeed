@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const baseURL = "https://orgfeeder-backend.onrender.com/orgFeeder/api/";
+// const baseURL = "https://orgfeeder-backend.onrender.com/orgFeeder/api/";
+const baseURL = "http://localhost:8000/orgFeeder/api/";
 
 const api = axios.create({
   baseURL: baseURL,

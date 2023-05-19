@@ -22,6 +22,7 @@ const PostExplore = () => {
     handleEditComment,
     voteHandler,
     toast,
+    isLoading,
   } = useComment();
   return (
     <Dashboard>
@@ -98,6 +99,7 @@ const PostExplore = () => {
                     commentPostHandler();
                     setComment("");
                   }}
+                  disabled={isLoading}
                 >
                   {" "}
                   Comment

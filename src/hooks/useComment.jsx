@@ -11,18 +11,22 @@ const useComment = () => {
   const [post, setPost] = useState({});
   const [toggle, setToggle] = useState(false);
   const [toggleEdit, setToggleEdit] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
     try {
       return async () => {
+        setIsLoading(true);
         const res = await getPostId(localStorage.getItem("postID"));
         if (res.status === 200) {
           // console.log(res.data.post);
           setPost(res.data.post);
           setToggleEdit(false);
           setToggle(false);
+          setIsLoading(false);
         }
       };
     } catch (err) {
+      setIsLoading(false);
       console.log(err.response);
     }
   }, [toggle]);
@@ -88,6 +92,7 @@ const useComment = () => {
     handleEditComment,
     voteHandler,
     toast,
+    isLoading,
   };
 };
 

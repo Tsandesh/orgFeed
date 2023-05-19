@@ -8,7 +8,10 @@ const CreateModal = ({ setToggle }) => {
   const [web, setWeb] = useState("");
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
   const onSubmitHandler = async () => {
+    setIsLoading(true);
     try {
       const res = await createOrg({
         name,
@@ -19,7 +22,9 @@ const CreateModal = ({ setToggle }) => {
       // console.log(res);
       toast.success("Organisations Created Succesfully");
       setToggle(true);
+      setIsLoading(false);
     } catch (err) {
+      setIsLoading(false);
       err.response.data.errors
         ? toast.error(err.response.data.errors[0].msg)
         : toast.error(err.response.data.error);
@@ -65,7 +70,12 @@ const CreateModal = ({ setToggle }) => {
             <a href="#" className="btn w-[5.5rem]">
               NO
             </a>
-            <a href="#" className="btn w-[5.5rem]" onClick={onSubmitHandler}>
+            <a
+              href="#"
+              className="btn w-[5.5rem]"
+              onClick={onSubmitHandler}
+              disabled={isLoading}
+            >
               Create
             </a>
           </div>
