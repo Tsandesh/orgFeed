@@ -1,45 +1,32 @@
 import React, { useEffect, useState } from "react";
 import CreatePost from "../board/CreatePost";
 import { getPosts } from "../../axios/axiosBoard";
-import Dashboard from "../Dashboard";
+import Dashboard from "../Shared/Dashboard";
 import Posts from "../board/Posts";
 import ReactLoading from "../Shared/ReactLoading";
-import Pagination from "../Pagination";
+import Pagination from "../Shared/Pagination";
+import useBoardList from "../../hooks/useBoardList";
 
 const Board = () => {
-  const [posts, setPosts] = useState([]);
-  const [toggle, setToggle] = useState(false);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    setLoading(true);
-    try {
-      return async () => {
-        const res = await getPosts(localStorage.getItem("boardID"));
-        if (res.status === 200) {
-          console.log("Posts retrive succesfully");
-          setLoading(false);
-          setPosts(res.data.posts);
-          setToggle(false);
-        }
-      };
-    } catch (err) {
-      setLoading(true);
-      console.log(err.response);
-    }
-  }, [toggle]);
-
-  const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage, setPostPerPage] = useState(4);
-
-  const lastPostIndex = currentPage * postsPerPage;
-  const firstPostIndex = lastPostIndex - postsPerPage;
-  const currentposts = posts.slice(firstPostIndex, lastPostIndex);
-
+  const {
+    posts,
+    setPosts,
+    toggle,
+    setToggle,
+    loading,
+    setLoading,
+    currentPage,
+    setCurrentPage,
+    postsPerPage,
+    setPostPerPage,
+    lastPostIndex,
+    firstPostIndex,
+    currentposts,
+  } = useBoardList();
   return (
     <>
       <Dashboard>
-        <div className="my-4 flex flex-row bg-white w-full">
+        <div className="my-4 flex flex-row bg-white w-full mt-12">
           <div className="mx-4 w-2/6">
             <CreatePost setToggle={setToggle} />
           </div>
@@ -48,7 +35,10 @@ const Board = () => {
               <ReactLoading />
             </div>
           ) : (
-            <div className="w-4/6 mx-8">
+            <div className="w-4/6">
+              <h1 className="text-xl text-center mb-8 font-semibold">
+                Some of the Popular Posts Right now 🔥
+              </h1>
               {currentposts?.length > 0
                 ? currentposts.map((post, index) => (
                     <Posts post={post} key={index} />

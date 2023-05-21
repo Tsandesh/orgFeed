@@ -24,7 +24,7 @@ const CreateBoardModal = ({ setToggle }) => {
       setIsLoading(false);
     } catch (error) {
       setIsLoading(false);
-      console.log(error);
+      toast.error(error);
     }
   };
 
@@ -62,7 +62,7 @@ const CreateBoardModal = ({ setToggle }) => {
             </a>
             <a
               href="#"
-              className="btn w-[5.5rem] "
+              className="btn w-[5.5rem] bg-green-600 hover:bg-green-800 active:bg-green-800 text-white"
               onClick={() => createBoardHandler()}
               disabled={isLoading}
             >

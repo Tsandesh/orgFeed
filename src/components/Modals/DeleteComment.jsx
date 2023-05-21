@@ -6,10 +6,9 @@ const DeleteCommentModal = ({ id, setToggle }) => {
   const onDeleteHandler = async () => {
     try {
       const res = await deleteComment({ id });
-      //   console.log(res.data.message);
+
       toast.success(res.data.message);
     } catch (err) {
-      // console.log("error", err.response);
       toast.error(err.response.data.error);
     }
   };
@@ -29,7 +28,11 @@ const DeleteCommentModal = ({ id, setToggle }) => {
             <a href="#" className="btn w-[5.5rem]">
               NO
             </a>
-            <a href="#" className="btn w-[5.5rem]" onClick={onDeleteHandler}>
+            <a
+              href="#"
+              className="btn w-[5.5rem] bg-green-600 hover:bg-green-800 active:bg-green-800 text-white"
+              onClick={onDeleteHandler}
+            >
               <button>YES</button>
             </a>
           </div>

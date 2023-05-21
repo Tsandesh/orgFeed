@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import keyBro from "../assets/Key-bro.svg";
 import InputField from "./Shared/InputFiled";
 import { signup } from "../axios/axios";
-
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Link, useNavigate } from "react-router-dom";
@@ -26,15 +25,11 @@ const SignUp = () => {
         phone,
       });
       if (res.status === 200) {
-        console.log(res.data.message);
         toast.success(res.data.message);
         setVerified(res.data.user.emailVerified);
-        console.log(verified);
-
-        // console.log(res.data.token);
+        navigate("/");
       }
     } catch (err) {
-      // console.log("error", err);
       err.response.data.errors
         ? toast.error(err.response.data.errors[0].msg)
         : toast.error(err.response.data.Error);

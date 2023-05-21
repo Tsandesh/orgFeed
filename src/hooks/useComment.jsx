@@ -19,7 +19,6 @@ const useComment = () => {
         setIsLoading(true);
         const res = await getPostId(localStorage.getItem("postID"));
         if (res.status === 200) {
-          // console.log(res.data.post);
           setPost(res.data.post);
           setToggleEdit(false);
           setLoading(false);
@@ -30,7 +29,7 @@ const useComment = () => {
     } catch (err) {
       setLoading(true);
       setIsLoading(false);
-      console.log(err.response);
+      toast.error(err.response);
     }
   }, [toggle]);
 
@@ -48,22 +47,21 @@ const useComment = () => {
       toast.success(res.data.message);
       res.status == 200 && setToggle(true);
     } catch (error) {
-      console.log(error);
+      toast.error(error);
     }
   };
 
   const handleEditComment = async () => {
     try {
-      // console.log(editComment.current);
       const res = await patchComment({
         id: commentId,
         comment: editComment.current,
       });
-      // console.log(res.data.message);
+
       toast.success(res.data.message);
       setToggle(true);
     } catch (error) {
-      console.log(error);
+      toast.error(error);
     }
   };
 
@@ -71,14 +69,14 @@ const useComment = () => {
     try {
       const id = localStorage.getItem("postID");
       const res = await votePost({ id });
-      console.log(res.data);
+
       if (res.data?.message) {
         toast.success(res.data.message);
         setToggle(true);
       }
     } catch (error) {
       // console.log(error.response.data.error);
-      console.log(error);
+      toast.error(error);
     }
   };
   return {

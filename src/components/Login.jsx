@@ -17,17 +17,14 @@ const Login = () => {
         password,
       });
       if (res.status === 200) {
-        // console.log(res.data.message);
         toast.success(res.data.message);
-        // console.log(res.data.token);
+
         localStorage.setItem("token", res.data.token);
         localStorage.setItem("userID", res.data.user._id);
 
         navigate("/");
-        // console.log(res.data.token);
       }
     } catch (err) {
-      //   console.log("error", err.response);
       err.response.data.errors
         ? toast.error(err.response.data.errors[0].msg)
         : toast.error(err.response.data.error);

@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import Dashboard from "../Dashboard";
+import Dashboard from "../Shared/Dashboard";
 import { ToastContainer, toast } from "react-toastify";
 import DeleteComment from "../Modals/DeleteComment";
 import moment from "moment";
@@ -101,7 +101,7 @@ const PostExplore = () => {
                 ></textarea>
                 <div className="mt-0 flex justify-end">
                   <button
-                    className="btn"
+                    className="btn shadow-sm border-none bg-green-600 hover:bg-green-700 active:bg-green-800 text-white"
                     onClick={() => {
                       commentPostHandler();
                       setComment("");

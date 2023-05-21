@@ -1,9 +1,7 @@
 import React from "react";
-import CreateModal from "./Modals/CreateModal";
-import createico from "../assets/create.svg";
-
+import logo from "/logo.png";
 import { Link } from "react-router-dom";
-import profileico from "../assets/profileico.svg";
+import profileico from "../../assets/profile.png";
 
 const Navbar = () => {
   const logoutHandler = () => {
@@ -14,13 +12,18 @@ const Navbar = () => {
     <>
       <div className="w-full text-center py-4 bg-[#3E363F] flex flex-row justify-between px-8">
         <Link className="text-white text-3xl" to="/">
-          NAVBAR 🔥
+          <img src={logo} alt="logo" width={100} height={80} />
         </Link>
 
         <div className="flex flex-row">
           <div className="dropdown dropdown-end ">
             <label tabIndex={0} className="  text-white hover:bg-black">
-              <img src={profileico} alt="profile" width={30} className="mt-2" />
+              <img
+                src={profileico}
+                alt="profile"
+                width={45}
+                className="mt-2 "
+              />
             </label>
             <ul
               tabIndex={0}

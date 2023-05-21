@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Dashboard from "../Dashboard";
+import Dashboard from "../Shared/Dashboard";
 import profileico from "../../assets/girl.jpeg";
 import { ToastContainer, toast } from "react-toastify";
 import { getUserById, updateProfile } from "../../axios/axios";
@@ -12,11 +12,11 @@ const Profile = () => {
       async function () {
         try {
           const res = await getUserById();
-          // console.log(res.data.user);
+
           setUser(res.data.user);
           setToggle(false);
         } catch (err) {
-          console.log(err);
+          toast.error(err);
         }
       },
     [toggle]
@@ -34,7 +34,7 @@ const Profile = () => {
       toast.success(res.data.message);
       setToggle(true);
     } catch (error) {
-      console.log(error);
+      toast.error(error);
     }
   };
   return (
@@ -63,7 +63,7 @@ const Profile = () => {
                     Cancel
                   </button>
                   <button
-                    className="btn w-[5.5rem]"
+                    className="btn w-[5.5rem]  border-none  bg-green-600 hover:bg-green-800 active:bg-green-800 text-white"
                     onClick={() => {
                       handleEdit();
                       setEditToggle(false);
@@ -74,7 +74,7 @@ const Profile = () => {
                 </div>
               ) : (
                 <button
-                  className="btn w-[5.5rem]"
+                  className="btn w-[5.5rem]  border-none bg-green-600 hover:bg-green-800 active:bg-green-800 text-white"
                   onClick={() => setEditToggle(true)}
                 >
                   Edit

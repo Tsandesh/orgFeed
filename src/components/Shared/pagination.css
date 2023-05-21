@@ -16,13 +16,13 @@
   cursor: pointer;
   transition: all 0.3s ease;
   background: transparent;
-  color: #eee;
+  color: #756f6f;
   border-color: #eee;
 }
 
 .pagination button.active {
   font-weight: 900;
   border-color: #101010;
-  background: #ffe400;
+  background: rgb(68, 179, 87);
   color: #101010;
 }

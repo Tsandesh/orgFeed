@@ -17,7 +17,6 @@ const ForgotPW = () => {
       if (res.status === 200) {
         toast.success("Password has been Reset... Redirecting to Login Page");
         navigate("/");
-        // console.log(email);
       }
     } catch (err) {
       err.response.data.errors
