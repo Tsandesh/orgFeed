@@ -4,20 +4,16 @@ import { Route, Routes } from "react-router-dom";
 import Login from "./components/Login";
 import ForgotPW from "./components/ForgotPW";
 import ResetPw from "./components/ResetPw";
-import Home from "./components/Pages/Home";
+
 import ProtectedRoutes from "./components/protectedroutes/protected-routes";
 import ProtectedLogin from "./components/protectedroutes/protected-login";
 import BoardFeat from "./components/Pages/Board";
 import PostExplore from "./components/Pages/PostExplore";
 import BoardList from "./components/Pages/BoardList";
 import Profile from "./components/Pages/Profile";
+import MyOrganisation from "./components/MyOrganisation";
 
 const App = () => {
-  // useEffect(() => {
-  //   const token = localStorage.getItem("userID");
-  //   console.log(token);
-  // }, []);
-
   return (
     <>
       <Routes>
@@ -25,7 +21,7 @@ const App = () => {
           path="/"
           element={
             <ProtectedRoutes>
-              <Home />
+              <MyOrganisation />
             </ProtectedRoutes>
           }
         ></Route>

@@ -6,7 +6,6 @@ import { useNavigate } from "react-router-dom";
 const Posts = ({
   post: { _id, title, email, description, status, priority, vote, comments },
 }) => {
-  // console.log(_id);
   const navigate = useNavigate();
   const postHandler = () => {
     localStorage.setItem("postID", _id);

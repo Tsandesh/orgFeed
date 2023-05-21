@@ -31,7 +31,6 @@ const CreatePost = ({ setToggle }) => {
         setIsLoading(false);
       }
     } catch (err) {
-      //   console.log("error", err.response);
       setIsLoading(false);
       err.response.data
         ? toast.error(err.response.data.errors[0].msg)
@@ -97,7 +96,7 @@ const CreatePost = ({ setToggle }) => {
           </div>
           <div className="card-actions justify-end mt-2">
             <button
-              className="btn btn-gray-650 py-0"
+              className="btn py-0 shadow-sm border-none bg-green-600 hover:bg-green-800 active:bg-green-800 text-white"
               onClick={onCreateHandler}
               disabled={isLoading}
             >

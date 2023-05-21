@@ -7,8 +7,6 @@ import { useNavigate } from "react-router-dom";
 import blueico from "../../assets/blueprintico.png";
 
 const DropMenu = ({ setToggle, setOrgId, org }) => {
-  // console.log("orgid", org._id);
-
   return (
     <>
       <div className="dropdown">

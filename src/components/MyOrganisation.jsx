@@ -7,7 +7,8 @@ import UpdateModal from "./Modals/UpdateModal";
 import CreateModal from "./Modals/CreateModal";
 import ReactLoading from "./Shared/ReactLoading";
 import { useNavigate } from "react-router-dom";
-import Pagination from "./Pagination";
+import Pagination from "./Shared/Pagination";
+import Dashboard from "./Shared/Dashboard";
 
 const MyOrganisation = () => {
   const [orgs, setOrgs] = useState([]);
@@ -41,7 +42,6 @@ const MyOrganisation = () => {
   const boardHandler = (id) => {
     localStorage.setItem("orgid", id);
 
-    // console.log("org_id", org._id);
     navigate("/board-list");
   };
 
@@ -51,85 +51,103 @@ const MyOrganisation = () => {
 
   return (
     <>
-      <ToastContainer theme="colored" autoClose={3000} />
+      <Dashboard>
+        <ToastContainer theme="colored" autoClose={3000} />
 
-      {loading ? (
-        <div className="flex justify-center items-center w-full h-[80vh]">
-          <ReactLoading />
-        </div>
-      ) : (
-        <div className="relative overflow-x-auto w-11/12 mx-10 h-[100vh]">
-          <h1 className="text-3xl text-center my-5">MY ORGANIZATION</h1>
-          <div>
-            {/* The button to open modal */}
-            <label
-              htmlFor="modal"
-              className="btn border-none w-fit bg-[#3E363F]  text-white mb-8 p-4 h-auto flex flex-row"
-            >
-              <a href="#createorg">Create Organisation </a>
-            </label>
+        {loading ? (
+          <div className="flex justify-center items-center w-full h-[80vh]">
+            <ReactLoading />
           </div>
-          <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-            <thead className="text-xs text-gray-700 uppercase bg-slate-50 dark:bg-gray-700 dark:text-gray-400">
-              <tr>
-                <th scope="col" className="px-6 py-3">
-                  Organisations Name
-                </th>
-                <th scope="col" className="px-6 py-3">
-                  Website
-                </th>
-                <th scope="col" className="px-6 py-3">
-                  Phone Number
-                </th>
-                <th scope="col" className="px-6 py-3">
-                  Address
-                </th>
-                <th scope="col" className="px-6 py-3">
-                  Actions
-                </th>
-              </tr>
-            </thead>
-            {currentOrgs?.length > 0
-              ? currentOrgs.map((org, index) => (
-                  <tbody key={index}>
-                    <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                      <th
-                        scope="row"
-                        className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                      >
-                        <a
-                          className="hover:underline hover:underline-offset-4 hover:cursor-pointer"
-                          onClick={() => boardHandler(org._id)}
+        ) : (
+          <div className="relative overflow-x-auto w-11/12 mx-10 h-[100vh]">
+            <div>
+              <h1 className="text-3xl text-center my-5">
+                Welcome to <span className="text-green-600"> Org Feed. </span>
+              </h1>{" "}
+              <h2 className="text-lg text-center my-5 ">
+                <span className="opacity-75 text-black">
+                  {" "}
+                  Get valuable insights and feedback about companies. Make
+                  informed decisions and contribute to our transparent community
+                  of reviewers.
+                </span>
+                <br />
+              </h2>
+              <h2 className="text-xl text-center">
+                Start Exploring <span className="text-green-600">Now !</span>
+              </h2>
+            </div>
+            <div>
+              {/* The button to open modal */}
+              <label
+                htmlFor="modal"
+                className="btn border-none w-fit bg-green-600 hover:bg-green-800 active:bg-green-800 text-white mb-8 p-4 h-auto flex flex-row"
+              >
+                <a href="#createorg">Create Organisation </a>
+              </label>
+            </div>
+            <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+              <thead className="text-xs text-gray-700 uppercase bg-slate-50 dark:bg-gray-700 dark:text-gray-400">
+                <tr>
+                  <th scope="col" className="px-6 py-3">
+                    Organisations Name
+                  </th>
+                  <th scope="col" className="px-6 py-3">
+                    Website
+                  </th>
+                  <th scope="col" className="px-6 py-3">
+                    Phone Number
+                  </th>
+                  <th scope="col" className="px-6 py-3">
+                    Address
+                  </th>
+                  <th scope="col" className="px-6 py-3">
+                    Actions
+                  </th>
+                </tr>
+              </thead>
+              {currentOrgs?.length > 0
+                ? currentOrgs.map((org, index) => (
+                    <tbody key={index}>
+                      <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                        <th
+                          scope="row"
+                          className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                         >
-                          {org.name}
-                        </a>
-                      </th>
-                      <td className="px-6 py-4">{org.website}</td>
-                      <td className="px-6 py-4">{org.phoneNumber}</td>
-                      <td className="px-6 py-4">{org.address}</td>
-                      <td className="px-6 py-4 ">
-                        <DropMenu
-                          org={org}
-                          setToggle={setToggle}
-                          setOrgId={setOrgId}
-                        />
-                      </td>
-                    </tr>
-                  </tbody>
-                ))
-              : "NO ORGS"}
-          </table>{" "}
-          <Pagination
-            totalPosts={orgs.length}
-            postsPerPage={postsPerPage}
-            setCurrentPage={setCurrentPage}
-            currentPage={currentPage}
-          />
-          <DeleteModal id={orgId} setToggle={setToggle} />
-          <UpdateModal id={orgId} setToggle={setToggle} />
-          <CreateModal setToggle={setToggle} />
-        </div>
-      )}
+                          <a
+                            className="hover:underline hover:underline-offset-4 hover:cursor-pointer hover:text-green-700"
+                            onClick={() => boardHandler(org._id)}
+                          >
+                            {org.name}
+                          </a>
+                        </th>
+                        <td className="px-6 py-4">{org.website}</td>
+                        <td className="px-6 py-4">{org.phoneNumber}</td>
+                        <td className="px-6 py-4">{org.address}</td>
+                        <td className="px-6 py-4 ">
+                          <DropMenu
+                            org={org}
+                            setToggle={setToggle}
+                            setOrgId={setOrgId}
+                          />
+                        </td>
+                      </tr>
+                    </tbody>
+                  ))
+                : "NO ORGS"}
+            </table>{" "}
+            <Pagination
+              totalPosts={orgs.length}
+              postsPerPage={postsPerPage}
+              setCurrentPage={setCurrentPage}
+              currentPage={currentPage}
+            />
+            <DeleteModal id={orgId} setToggle={setToggle} />
+            <UpdateModal id={orgId} setToggle={setToggle} />
+            <CreateModal setToggle={setToggle} />
+          </div>
+        )}
+      </Dashboard>
     </>
   );
 };

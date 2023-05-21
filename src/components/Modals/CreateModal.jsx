@@ -19,7 +19,7 @@ const CreateModal = ({ setToggle }) => {
         phoneNumber: phone,
         address,
       });
-      // console.log(res);
+
       toast.success("Organisations Created Succesfully");
       setToggle(true);
       setIsLoading(false);
@@ -72,7 +72,7 @@ const CreateModal = ({ setToggle }) => {
             </a>
             <a
               href="#"
-              className="btn w-[5.5rem]"
+              className="btn w-[5.5rem] bg-green-600 hover:bg-green-800 active:bg-green-800 text-white"
               onClick={onSubmitHandler}
               disabled={isLoading}
             >

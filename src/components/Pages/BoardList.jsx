@@ -1,12 +1,12 @@
 import React from "react";
-import Dashboard from "../Dashboard";
+import Dashboard from "../Shared/Dashboard";
 import { useEffect } from "react";
 import { getBoard } from "../../axios/axiosBoard";
 import CreateBoardModal from "../Modals/CreateBoardModal";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ReactLoading from "../Shared/ReactLoading";
-import Pagination from "../Pagination";
+import Pagination from "../Shared/Pagination";
 
 const BoardList = () => {
   const [boards, setBoard] = useState([]);
@@ -18,11 +18,9 @@ const BoardList = () => {
   const [postsPerPage, setPostPerPage] = useState(9);
 
   const boardHandler = (id) => {
-    // console.log("dasdasd", id);
     localStorage.setItem("boardID", id);
     navigate("/board");
   };
-  console.log(toggle);
 
   useEffect(() => {
     setLoading(true);
@@ -30,7 +28,6 @@ const BoardList = () => {
       return async () => {
         const res = await getBoard(localStorage.getItem("orgid"));
         if (res.status === 200) {
-          console.log(res.data.boards);
           setBoard(res.data.boards);
           setLoading(false);
           setToggle(false);
@@ -38,7 +35,6 @@ const BoardList = () => {
       };
     } catch (error) {
       setLoading(true);
-      console.log(error);
     }
   }, [toggle]);
 
@@ -55,11 +51,24 @@ const BoardList = () => {
           </div>
         ) : (
           <main className=" mt-5">
-            <div className="ml-8">
+            <div className="text-center text-xl font-normal">
+              <h1>
+                Board Section will contain all the Organization's Board of type{" "}
+                <br />
+                <span className="text-green-600"> Bug Report</span>,
+                <span className="text-green-600"> Feedback </span>
+                and <span className="text-green-600"> Feature Request</span>
+                <br />
+                <label
+                  htmlFor="modal"
+                  className="btn mt-4 mb-4 border-none shadow-sm bg-green-600 hover:bg-green-800 active:bg-green-800 "
+                >
+                  <a href="#createboard" className="hover:text-white">
+                    Create Board
+                  </a>
+                </label>{" "}
+              </h1>
               {/* The button to open modal */}
-              <label htmlFor="modal" className="btn mb-4 ml-4">
-                <a href="#createboard">Create Board</a>
-              </label>{" "}
             </div>{" "}
             <div className="grid grid-cols-3 gap-16 ml-4">
               {currentboards?.length > 0 ? (
@@ -87,7 +96,7 @@ const BoardList = () => {
 
                       <div className="card-actions justify-end">
                         <button
-                          className="p-2 rounded-md text-slate-700 border border-black hover:bg-success hover:border-none"
+                          className="p-2 rounded-md text-slate-700 border border-black hover:bg-green-600 hover:text-white hover:border-none"
                           onClick={() => boardHandler(board._id)}
                         >
                           Show More

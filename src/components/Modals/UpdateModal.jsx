@@ -17,12 +17,12 @@ const UpdateModal = ({ id, setToggle }) => {
         setToggle(true);
       }
     } catch (err) {
-      console.log("error", err);
       err.response.data?.errors
         ? toast.error(err.response.data.errors[0].msg)
         : toast.error(err.response.data.error);
     }
   };
+
   return (
     <>
       <ToastContainer theme="colored" autoClose={3000} />
@@ -62,7 +62,10 @@ const UpdateModal = ({ id, setToggle }) => {
             <a href="#" className="btn w-[5.5rem] ">
               NO
             </a>
-            <a href="#" className="btn w-[5.5rem]">
+            <a
+              href="#"
+              className="btn w-[5.5rem] bg-green-600 hover:bg-green-800 active:bg-green-800 text-white"
+            >
               <button onClick={() => onUpdateHandler(id)}>YES</button>
             </a>
           </div>
