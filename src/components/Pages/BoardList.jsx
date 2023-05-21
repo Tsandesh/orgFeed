@@ -5,11 +5,13 @@ import { getBoard } from "../../axios/axiosBoard";
 import CreateBoardModal from "../Modals/CreateBoardModal";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import ReactLoading from "../Shared/ReactLoading";
 
 const BoardList = () => {
   const [boards, setBoard] = useState([]);
   const navigate = useNavigate();
   const [toggle, setToggle] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const boardHandler = (id) => {
     // console.log("dasdasd", id);
@@ -19,32 +21,40 @@ const BoardList = () => {
   console.log(toggle);
 
   useEffect(() => {
+    setLoading(true);
     try {
       return async () => {
         const res = await getBoard(localStorage.getItem("orgid"));
         if (res.status === 200) {
           console.log(res.data.boards);
           setBoard(res.data.boards);
+          setLoading(false);
           setToggle(false);
         }
       };
     } catch (error) {
+      setLoading(true);
       console.log(error);
     }
   }, [toggle]);
 
   return (
     <Dashboard>
-      <main className=" mt-5">
-        <div className="ml-8">
-          {/* The button to open modal */}
-          <label htmlFor="modal" className="btn mb-4 ml-4">
-            <a href="#createboard">Create Board</a>
-          </label>{" "}
-        </div>{" "}
-        <div className="grid grid-cols-3 gap-20 ml-8">
-          {boards?.length > 0
-            ? boards.map((board, index) => (
+      {loading ? (
+        <div className="flex justify-center items-center w-full h-[80vh]">
+          <ReactLoading />
+        </div>
+      ) : (
+        <main className=" mt-5">
+          <div className="ml-8">
+            {/* The button to open modal */}
+            <label htmlFor="modal" className="btn mb-4 ml-4">
+              <a href="#createboard">Create Board</a>
+            </label>{" "}
+          </div>{" "}
+          <div className="grid grid-cols-3 gap-20 ml-8">
+            {boards?.length > 0 ? (
+              boards.map((board, index) => (
                 <div className="card w-96 bg-base-100 shadow-md hover:scale-110">
                   <div className="card-body">
                     <h2 className="card-title ">
@@ -77,9 +87,13 @@ const BoardList = () => {
                   </div>
                 </div>
               ))
-            : " "}
-        </div>
-      </main>
+            ) : (
+              <p>No Boards to show please create some boards to continue</p>
+            )}
+          </div>
+        </main>
+      )}
+
       <CreateBoardModal setToggle={setToggle} />
     </Dashboard>
   );
