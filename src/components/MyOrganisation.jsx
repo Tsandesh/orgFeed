@@ -7,12 +7,16 @@ import UpdateModal from "./Modals/UpdateModal";
 import CreateModal from "./Modals/CreateModal";
 import ReactLoading from "./Shared/ReactLoading";
 import { useNavigate } from "react-router-dom";
+import Pagination from "./Pagination";
 
 const MyOrganisation = () => {
   const [orgs, setOrgs] = useState([]);
   const [toggle, setToggle] = useState(false);
   const [orgId, setOrgId] = useState("");
   const [loading, setLoading] = useState(true);
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage, setPostPerPage] = useState(4);
 
   useEffect(
     () =>
@@ -40,6 +44,10 @@ const MyOrganisation = () => {
     // console.log("org_id", org._id);
     navigate("/board-list");
   };
+
+  const lastPostIndex = currentPage * postsPerPage;
+  const firstPostIndex = lastPostIndex - postsPerPage;
+  const currentOrgs = orgs.slice(firstPostIndex, lastPostIndex);
 
   return (
     <>
@@ -81,8 +89,8 @@ const MyOrganisation = () => {
                 </th>
               </tr>
             </thead>
-            {orgs?.length > 0
-              ? orgs.map((org, index) => (
+            {currentOrgs?.length > 0
+              ? currentOrgs.map((org, index) => (
                   <tbody key={index}>
                     <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                       <th
@@ -110,7 +118,13 @@ const MyOrganisation = () => {
                   </tbody>
                 ))
               : "NO ORGS"}
-          </table>
+          </table>{" "}
+          <Pagination
+            totalPosts={orgs.length}
+            postsPerPage={postsPerPage}
+            setCurrentPage={setCurrentPage}
+            currentPage={currentPage}
+          />
           <DeleteModal id={orgId} setToggle={setToggle} />
           <UpdateModal id={orgId} setToggle={setToggle} />
           <CreateModal setToggle={setToggle} />

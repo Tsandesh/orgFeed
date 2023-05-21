@@ -4,6 +4,7 @@ import { getPosts } from "../../axios/axiosBoard";
 import Dashboard from "../Dashboard";
 import Posts from "../board/Posts";
 import ReactLoading from "../Shared/ReactLoading";
+import Pagination from "../Pagination";
 
 const Board = () => {
   const [posts, setPosts] = useState([]);
@@ -28,25 +29,44 @@ const Board = () => {
     }
   }, [toggle]);
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage, setPostPerPage] = useState(4);
+
+  const lastPostIndex = currentPage * postsPerPage;
+  const firstPostIndex = lastPostIndex - postsPerPage;
+  const currentposts = posts.slice(firstPostIndex, lastPostIndex);
+
   return (
-    <Dashboard>
-      <div className="my-4 flex flex-row bg-white w-full">
-        <div className="mx-4 w-2/6">
-          <CreatePost setToggle={setToggle} />
+    <>
+      <Dashboard>
+        <div className="my-4 flex flex-row bg-white w-full">
+          <div className="mx-4 w-2/6">
+            <CreatePost setToggle={setToggle} />
+          </div>
+          {loading ? (
+            <div className="flex justify-center items-center w-full h-[80vh]">
+              <ReactLoading />
+            </div>
+          ) : (
+            <div className="w-4/6 mx-8">
+              {currentposts?.length > 0
+                ? currentposts.map((post, index) => (
+                    <Posts post={post} key={index} />
+                  ))
+                : "NO POSTS"}
+            </div>
+          )}
         </div>
-        {loading ? (
-          <div className="flex justify-center items-center w-full h-[80vh]">
-            <ReactLoading />
-          </div>
-        ) : (
-          <div className="w-4/6 mx-8">
-            {posts?.length > 0
-              ? posts.map((post, index) => <Posts post={post} key={index} />)
-              : "NO POSTS"}
-          </div>
-        )}
+      </Dashboard>
+      <div className="mb-4">
+        <Pagination
+          totalPosts={posts.length}
+          postsPerPage={postsPerPage}
+          setCurrentPage={setCurrentPage}
+          currentPage={currentPage}
+        />
       </div>
-    </Dashboard>
+    </>
   );
 };
 
