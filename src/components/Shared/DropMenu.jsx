@@ -8,13 +8,6 @@ import blueico from "../../assets/blueprintico.png";
 
 const DropMenu = ({ setToggle, setOrgId, org }) => {
   // console.log("orgid", org._id);
-  const navigate = useNavigate();
-  const boardHandler = () => {
-    localStorage.setItem("orgid", org._id);
-
-    // console.log("org_id", org._id);
-    navigate("/board-list");
-  };
 
   return (
     <>
@@ -42,11 +35,6 @@ const DropMenu = ({ setToggle, setOrgId, org }) => {
               className="btn w-fit border-none bg-slate-100 hover:bg-success"
             >
               🗑️ Delete
-            </a>
-          </li>
-          <li onClick={() => boardHandler()}>
-            <a className="btn w-fit border-none bg-slate-100 hover:bg-success">
-              📟 Board
             </a>
           </li>
         </ul>

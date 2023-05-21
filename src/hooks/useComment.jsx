@@ -12,6 +12,7 @@ const useComment = () => {
   const [toggle, setToggle] = useState(false);
   const [toggleEdit, setToggleEdit] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     try {
       return async () => {
@@ -21,11 +22,13 @@ const useComment = () => {
           // console.log(res.data.post);
           setPost(res.data.post);
           setToggleEdit(false);
+          setLoading(false);
           setToggle(false);
           setIsLoading(false);
         }
       };
     } catch (err) {
+      setLoading(true);
       setIsLoading(false);
       console.log(err.response);
     }
@@ -93,6 +96,7 @@ const useComment = () => {
     voteHandler,
     toast,
     isLoading,
+    loading,
   };
 };
 
