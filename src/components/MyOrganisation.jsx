@@ -9,6 +9,7 @@ import ReactLoading from "./Shared/ReactLoading";
 import { useNavigate } from "react-router-dom";
 import Pagination from "./Shared/Pagination";
 import Dashboard from "./Shared/Dashboard";
+import moment from "moment";
 
 const MyOrganisation = () => {
   const [orgs, setOrgs] = useState([]);
@@ -110,7 +111,7 @@ const MyOrganisation = () => {
                 ? currentOrgs.map((org, index) => (
                     <tbody key={index}>
                       <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                        <th
+                        {/* <th
                           scope="row"
                           className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                         >
@@ -120,7 +121,24 @@ const MyOrganisation = () => {
                           >
                             {org.name}
                           </a>
-                        </th>
+                        </th> */}
+                        <td onClick={() => boardHandler(org._id)}>
+                          <div className="flex items-center space-x-3 ">
+                            <div className="avatar">
+                              <div className="mask mask-squircle w-12 h-12">
+                                <img src={org.logo} alt="org logo" />
+                              </div>
+                            </div>
+                            <div>
+                              <div className="font-bold hover:underline hover:underline-offset-4 hover:cursor-pointer hover:text-green-700">
+                                {org.name}
+                              </div>
+                              <div className="text-sm opacity-50">
+                                updated at: {moment(org.updatedAt).fromNow()}
+                              </div>
+                            </div>
+                          </div>
+                        </td>
                         <td className="px-6 py-4">{org.website}</td>
                         <td className="px-6 py-4">{org.phoneNumber}</td>
                         <td className="px-6 py-4">{org.address}</td>
