@@ -7,20 +7,21 @@ import moment from "moment";
 
 const Profile = () => {
   const [toggle, setToggle] = useState(false);
-  useEffect(
-    () =>
-      async function () {
-        try {
-          const res = await getUserById();
 
-          setUser(res.data.user);
-          setToggle(false);
-        } catch (err) {
-          toast.error(err);
-        }
-      },
-    [toggle]
-  );
+  useEffect(() => {
+    const getProfile = async () => {
+      try {
+        const res = await getUserById();
+
+        setUser(res.data.user);
+        setToggle(false);
+      } catch (err) {
+        toast.error(err);
+      }
+    };
+
+    getProfile();
+  }, [toggle]);
 
   const [user, setUser] = useState({});
   const [editToggle, setEditToggle] = useState(false);

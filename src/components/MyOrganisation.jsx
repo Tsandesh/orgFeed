@@ -16,28 +16,28 @@ const MyOrganisation = () => {
   const [toggle, setToggle] = useState(false);
   const [orgId, setOrgId] = useState("");
   const [loading, setLoading] = useState(true);
-
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage, setPostPerPage] = useState(4);
 
-  useEffect(
-    () =>
-      async function getOrg() {
+  useEffect(() => {
+    const getOrg = async () => {
+      setLoading(true);
+      try {
+        const res = await orgByUser();
+        console.log("is this working");
+        setOrgs(res.data.org);
+        setToggle(false);
+        setLoading(false);
+      } catch (err) {
         setLoading(true);
-        try {
-          const res = await orgByUser();
-          setOrgs(res.data.org);
-          setToggle(false);
-          setLoading(false);
-        } catch (err) {
-          setLoading(true);
-          err.response.data.errors
-            ? toast.error(err.response.data.errors[0].msg)
-            : toast.error(err.response.data.error);
-        }
-      },
-    [toggle]
-  );
+        err.response.data.errors
+          ? toast.error(err.response.data.errors[0].msg)
+          : toast.error(err.response.data.error);
+      }
+    };
+
+    getOrg();
+  }, [toggle]);
 
   const navigate = useNavigate();
   const boardHandler = (id) => {

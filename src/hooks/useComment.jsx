@@ -14,8 +14,8 @@ const useComment = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
-    try {
-      return async () => {
+    const getPosts = async () => {
+      try {
         setIsLoading(true);
         const res = await getPostId(localStorage.getItem("postID"));
         if (res.status === 200) {
@@ -25,13 +25,14 @@ const useComment = () => {
           setToggle(false);
           setIsLoading(false);
         }
-      };
-    } catch (err) {
-      setLoading(true);
-      setIsLoading(false);
-      toast.error(err.response);
-    }
-  }, [toggle]);
+      } catch (err) {
+        setLoading(true);
+        setIsLoading(false);
+        toast.error(err.response);
+      }
+    };
+    getPosts(), [toggle];
+  });
 
   const [comment, setComment] = useState();
   const [commentId, setCommentId] = useState("");

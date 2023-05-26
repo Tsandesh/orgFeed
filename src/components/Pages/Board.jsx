@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import CreatePost from "../board/CreatePost";
 import { getPosts } from "../../axios/axiosBoard";
 import Dashboard from "../Shared/Dashboard";

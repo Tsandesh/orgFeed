@@ -22,20 +22,39 @@ const BoardList = () => {
     navigate("/board");
   };
 
+  // useEffect(() => {
+  //   const getBoards = async () => {
+  //     setLoading(true);
+  //     try {
+  //       const res = await getBoard(localStorage.getItem("orgid"));
+  //       if (res.status === 200) {
+  //         setBoard(res.data.boards);
+  //         setLoading(false);
+  //         setToggle(false);
+  //       }
+  //     } catch (error) {
+  //       setLoading(true);
+  //     }
+  //   };
+  //   getBoards();
+  // }, [toggle]);
+
   useEffect(() => {
-    setLoading(true);
-    try {
-      return async () => {
+    const getBoards = async () => {
+      setLoading(true);
+      try {
         const res = await getBoard(localStorage.getItem("orgid"));
         if (res.status === 200) {
+          console.log("wooohooo");
           setBoard(res.data.boards);
           setLoading(false);
           setToggle(false);
         }
-      };
-    } catch (error) {
-      setLoading(true);
-    }
+      } catch (error) {
+        setLoading(true);
+      }
+    };
+    getBoards();
   }, [toggle]);
 
   const lastPostIndex = currentPage * postsPerPage;

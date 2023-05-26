@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getPosts } from "../axios/axiosBoard";
+import { getBoard, getPosts } from "../axios/axiosBoard";
 
 const useBoardList = () => {
   const [posts, setPosts] = useState([]);
@@ -7,19 +7,22 @@ const useBoardList = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setLoading(true);
-    try {
-      return async () => {
+    const getBoards = async () => {
+      setLoading(true);
+      try {
         const res = await getPosts(localStorage.getItem("boardID"));
         if (res.status === 200) {
+          console.log("woo2");
           setLoading(false);
           setPosts(res.data.posts);
           setToggle(false);
         }
-      };
-    } catch (err) {
-      setLoading(true);
-    }
+      } catch (err) {
+        setLoading(true);
+      }
+    };
+
+    getBoards();
   }, [toggle]);
 
   const [currentPage, setCurrentPage] = useState(1);
