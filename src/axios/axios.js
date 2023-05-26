@@ -1,5 +1,9 @@
 import axios from "axios";
 
+<<<<<<< Updated upstream
+=======
+// const baseURL = "https://orgfeeder-backend.onrender.com/orgFeeder/api/";
+>>>>>>> Stashed changes
 const baseURL = "http://localhost:8000/orgFeeder/api/";
 
 const api = axios.create({
